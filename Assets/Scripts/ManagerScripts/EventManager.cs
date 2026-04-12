@@ -95,4 +95,29 @@ public class EventManager : MonoBehaviour
     {
 
     }
+
+    public void interactFirstMap()
+    {
+        List<DialogueLine> conversation = new List<DialogueLine>
+        {
+            new DialogueLine("Hayalet", "Al sana bu adanýn harita parçalarý..."),
+            new DialogueLine("Hayalet", "Sonrakileri kendin bulman gerekecek."),
+            new DialogueLine("Prenses", "OFF. Ama çok iþþ"),
+            new DialogueLine("Hayalet", "Sen bu iþi slaylersin.")
+        };
+    
+        DialogueManager.Instance.StartDialogue(conversation);
+        //Grid puzzle 1 setActive true.
+    }
+    public void interactSecondMap()
+    {
+        List<DialogueLine> conversation = new List<DialogueLine>
+        {
+            new DialogueLine("Prenses", "Ikýncý harita kalýntýlarýný da buldum..."),
+            new DialogueLine("Hayalet", "Aferin iyi ilerliyorsun.")
+        };
+
+        DialogueManager.Instance.StartDialogue(conversation);
+        //Grid puzzle 2 setActive true.
+    }
 }
