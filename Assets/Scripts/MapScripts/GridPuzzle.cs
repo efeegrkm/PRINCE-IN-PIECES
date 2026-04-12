@@ -13,12 +13,15 @@ public class GridPuzzle : MonoBehaviour
     public List<GridBlock> blocks;
 
     [Header("Görsel Ayarlar")]
+    [Tooltip("Bitmiþ map resize için:")]
+    public Sprite finishedPuzzle; 
+
     public Color gridLineColor = new Color(0, 0, 0, 0.5f);
     public float gridLineThickness = 4f;
 
     [Header("Efektler ve Ok")]
-    public float swapDuration = 0.2f; 
-    public RectTransform arrowIndicator; 
+    public float swapDuration = 0.2f;
+    public RectTransform arrowIndicator;
 
     private RectTransform puzzleRect;
     private float blockWidth;
@@ -45,13 +48,25 @@ public class GridPuzzle : MonoBehaviour
         if (blocks.Count != expectedBlockCount) return;
 
         puzzleRect = GetComponent<RectTransform>();
+        if (finishedPuzzle != null)
+        {
+            float imageWidth = finishedPuzzle.rect.width;
+            float imageHeight = finishedPuzzle.rect.height;
+            float aspectRatio = imageWidth / imageHeight;
+
+            float currentWidth = puzzleRect.rect.width;
+            float newHeight = currentWidth / aspectRatio;
+
+            puzzleRect.sizeDelta = new Vector2(currentWidth, newHeight);
+        }
+
         blockWidth = puzzleRect.rect.width / xGridCount;
         blockHeight = puzzleRect.rect.height / yGridCount;
 
         foreach (var block in blocks)
         {
             block.Init(this, blockWidth, blockHeight);
-            block.UpdateVisualPosition(true); 
+            block.UpdateVisualPosition(true);
         }
 
         CreateGridLines();
@@ -159,7 +174,7 @@ public class GridPuzzle : MonoBehaviour
     private void UpdateCursorVisuals()
     {
         foreach (var block in blocks) block.SetShade(false);
-        if (arrowIndicator != null) arrowIndicator.gameObject.SetActive(false); // Oku gizle
+        if (arrowIndicator != null) arrowIndicator.gameObject.SetActive(false);
 
         if (selectionState == 0)
         {
@@ -242,15 +257,15 @@ public class GridPuzzle : MonoBehaviour
         blockB.currentY = tempY;
 
         isAnimating = true;
-        if (arrowIndicator != null) arrowIndicator.gameObject.SetActive(false); 
+        if (arrowIndicator != null) arrowIndicator.gameObject.SetActive(false);
 
         int completedAnimations = 0;
 
         System.Action onAnimComplete = () => {
             completedAnimations++;
-            if (completedAnimations == 2) 
+            if (completedAnimations == 2)
             {
-                isAnimating = false; 
+                isAnimating = false;
                 CheckWinCondition();
             }
         };
