@@ -433,6 +433,7 @@ MonoBehaviour:
   balina3D: {fileID: 8625707942996332278}
   balina2D: {fileID: 1279959023}
   goblinPrinces: {fileID: 5690334672802383542}
+  mainMap: {fileID: 1021977902}
   bodyCount: 0
 --- !u!4 &211509832
 Transform:
@@ -1103,7 +1104,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5188b8efe641e9747ba0c7f4b7b645b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WhaleInteractionZone
-  isAutoTrigger: 0
+  isAutoTrigger: 1
   applyPushback: 1
   pushbackForce: 500
   OnInteractEvent:
@@ -1343,6 +1344,8 @@ GameObject:
   m_Component:
   - component: {fileID: 564270790}
   - component: {fileID: 564270789}
+  - component: {fileID: 564270792}
+  - component: {fileID: 564270791}
   m_Layer: 0
   m_Name: BG
   m_TagString: Untagged
@@ -1424,6 +1427,55 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: -0.593}
+--- !u!114 &564270791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 564270788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd9c2ae62f0d21243af08bc26157ae21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Interactable
+  isAutoTrigger: 1
+  OnInteractEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 211509831}
+        m_TargetAssemblyTypeName: EventManager, Assembly-CSharp
+        m_MethodName: restart
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!65 &564270792
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 564270788}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 49.999996, y: 50.00001, z: 0}
+  m_Center: {x: -1.5086267e-17, y: 4.03129e-16, z: 0.10000049}
 --- !u!1 &637038876
 GameObject:
   m_ObjectHideFlags: 0

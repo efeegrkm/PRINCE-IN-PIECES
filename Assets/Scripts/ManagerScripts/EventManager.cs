@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class EventManager : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class EventManager : MonoBehaviour
     public GameObject balina3D;
     public GameObject balina2D;
     public GameObject goblinPrinces;
+    public GameObject mainMap;
 
 
     public int bodyCount = 0;
@@ -110,28 +112,32 @@ public class EventManager : MonoBehaviour
         goblinPrinces.transform.position = new Vector3(-5, 4.02f, -16.94f);
         Physics.SyncTransforms();
         balina2D.GetComponent<RectTransform>().anchoredPosition = new Vector2(69f, -155f);
+        mainMap.SetActive(false);
         GameManager.Instance.ChangeState(GameState.Exploring);
     }
     public void startIsland3()
     {
-        balina3D.transform.position = new Vector3(3.42f, -5.07f, -31.48f);
+        balina3D.transform.position = new Vector3(10.34f, -6.519166f, -7.4f);
         goblinPrinces.transform.position = new Vector3(17.19f, 3.81f, -11.8f);
         Physics.SyncTransforms();
         balina2D.GetComponent<RectTransform>().anchoredPosition = new Vector2(329f, 85f);
+        mainMap.SetActive(false);
         GameManager.Instance.ChangeState(GameState.Exploring);
     }
     public void startIsland4()
     {
-        balina3D.transform.position = new Vector3(11.04f, 0.59f, 9.07f);
+        balina3D.transform.position = new Vector3(-5.08f, -6.44f, 5.48f);
         goblinPrinces.transform.position = new Vector3(14.9f, 3.89f, 13.25f);
         Physics.SyncTransforms();
         balina2D.GetComponent<RectTransform>().anchoredPosition = new Vector2(243f, 293f);
+        mainMap.SetActive(false);
         GameManager.Instance.ChangeState(GameState.Exploring);
     }
     public void startIsland5()
     {
         goblinPrinces.transform.position = new Vector3(-8.87f, 1.77f, 17.52f);
         Physics.SyncTransforms();
+        mainMap.SetActive(false);
         GameManager.Instance.ChangeState(GameState.Exploring);
     }
 
@@ -251,5 +257,9 @@ public class EventManager : MonoBehaviour
                 new DialogueLine("Prenses", bodyCount + ". parçayı buldum.")
             };
         DialogueManager.Instance.StartDialogue(conversation);
+    }
+    public void restart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
