@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
     public void ChangeState(GameState newState)
     {
         CurrentState = newState;
-        Debug.Log("[GameManager] Oyun Durumu Değişti: " + CurrentState);
+        Debug.Log("[GameManager] Oyun Durumu DeÄŸiÅŸti: " + CurrentState);
 
         if (newState == GameState.Exploring)
         {

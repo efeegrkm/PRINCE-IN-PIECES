@@ -10,7 +10,8 @@ public class SoundManager : MonoBehaviour
 
     public void PlayBackgroundMusic()
     {
-        audioSource.PlayOneShot(backgroundMusic);
+        audioSource.clip = backgroundMusic;
+        audioSource.Play();
     }
 
     public void PlayAudio()

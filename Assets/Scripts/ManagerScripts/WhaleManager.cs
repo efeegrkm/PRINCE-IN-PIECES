@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -5,19 +6,22 @@ public class WhaleManager : MonoBehaviour
 {
     public static WhaleManager Instance { get; private set; }
 
-    [Header("UI Referanslarý")]
+    [Header("UI ReferanslarÄ±")]
     public RectTransform parentCanvasRect; // Ana Canvas
-    public RectTransform mapRect;          // Harita Image'ý
-    public RectTransform whaleRect;        // Balina Image'ý
-    public Rigidbody2D whaleRb;            // Balinanýn Fiziði
+    public RectTransform mapRect;          // Harita Image'ï¿½
+    public RectTransform whaleRect;        // Balina Image'ï¿½
+    public Rigidbody2D whaleRb;            // Balinanï¿½n Fiziï¿½i
 
     [Header("Ayarlar")]
-    public float moveSpeed = 400f;         // Balinanýn UI üzerindeki hýzý
+    public float moveSpeed = 400f;         // Balinanï¿½n UI ï¿½zerindeki hï¿½zï¿½
 
     private Vector3 originalMapScale;
     private Vector2 originalMapPosition;
     private bool isWhaleMode = false;
     private Vector2 moveInput;
+
+    [Header("Balina KonumlarÄ±")]
+    public List<Transform> whaleLocations;
 
     private void Awake()
     {
@@ -30,33 +34,33 @@ public class WhaleManager : MonoBehaviour
         // 1. Eski durumu kaydet
         mapRect.gameObject.SetActive(true);
         GameManager.Instance.ChangeState(GameState.Map);
-        //Blackout ekle zaman kalýrsa.
+        //Blackout ekle zaman kalï¿½rsa.
         originalMapScale = mapRect.localScale;
         originalMapPosition = mapRect.anchoredPosition;
 
-        // 2. Haritayý ekranýn geniþliðine göre Scale et (Fit to Width)
+        // 2. Haritayï¿½ ekranï¿½n geniï¿½liï¿½ine gï¿½re Scale et (Fit to Width)
         float targetScale = parentCanvasRect.rect.width / mapRect.rect.width;
         mapRect.localScale = new Vector3(targetScale, targetScale, 1f);
 
-        // 3. Haritayý merkeze al
+        // 3. Haritayï¿½ merkeze al
         mapRect.anchoredPosition = Vector2.zero;
 
-        // 4. Sistemi ve fiziði aç
+        // 4. Sistemi ve fiziï¿½i aï¿½
         isWhaleMode = true;
         whaleRb.simulated = true;
         GameManager.Instance.ChangeState(GameState.OnWhale);
     }
 
-    // Bu metodu balina modundan çýkarken çaðýr
+    // Bu metodu balina modundan ï¿½ï¿½karken ï¿½aï¿½ï¿½r
     public void ExitWhaleMode()
     {
         isWhaleMode = false;
 
-        // Fiziði ve hýzý durdur
+        // Fiziï¿½i ve hï¿½zï¿½ durdur
         whaleRb.simulated = false;
-        whaleRb.linearVelocity = Vector2.zero; // (Unity 6 kullandýðýn için linearVelocity, eskiyse velocity yaz)
+        whaleRb.linearVelocity = Vector2.zero; // (Unity 6 kullandï¿½ï¿½ï¿½n iï¿½in linearVelocity, eskiyse velocity yaz)
 
-        // Haritayý eski konum ve boyutuna geri getir
+        // Haritayï¿½ eski konum ve boyutuna geri getir
         mapRect.localScale = originalMapScale;
         mapRect.anchoredPosition = originalMapPosition;
 
@@ -67,7 +71,7 @@ public class WhaleManager : MonoBehaviour
     {
         if (!isWhaleMode) return;
 
-        // Diyalog açýlýrsa (veya Pause edilirse) balina olduðu yerde dursun
+        // Diyalog aï¿½ï¿½lï¿½rsa (veya Pause edilirse) balina olduï¿½u yerde dursun
         if (GameManager.Instance.CurrentState != GameState.OnWhale)
         {
             if (whaleRb.linearVelocity != Vector2.zero) whaleRb.linearVelocity = Vector2.zero;
@@ -85,8 +89,8 @@ public class WhaleManager : MonoBehaviour
     {
         if (!isWhaleMode || GameManager.Instance.CurrentState != GameState.OnWhale) return;
 
-        // Balinayý Rigidbody ile hareket ettir (Duvarlara çarpabilmesi için bu þarttýr)
-        // Harita büyüdüðü için hýzý mapRect.localScale.x ile çarpýyoruz ki hýz tutarlý kalsýn
+        // Balinayï¿½ Rigidbody ile hareket ettir (Duvarlara ï¿½arpabilmesi iï¿½in bu ï¿½arttï¿½r)
+        // Harita bï¿½yï¿½dï¿½ï¿½ï¿½ iï¿½in hï¿½zï¿½ mapRect.localScale.x ile ï¿½arpï¿½yoruz ki hï¿½z tutarlï¿½ kalsï¿½n
         whaleRb.linearVelocity = moveInput * moveSpeed * mapRect.localScale.x;
     }
 
@@ -123,13 +127,13 @@ public class WhaleManager : MonoBehaviour
         float scaledMapHeight = mapRect.rect.height * mapRect.localScale.y;
         float canvasHeight = parentCanvasRect.rect.height;
 
-        // Taþma payýný hesapla
+        // Taï¿½ma payï¿½nï¿½ hesapla
         float maxY = Mathf.Max(0, (scaledMapHeight - canvasHeight) / 2f);
         float minY = -maxY;
 
         targetMapY = Mathf.Clamp(targetMapY, minY, maxY);
 
-        // Haritayý yumuþak bir þekilde kaydýr (X ekseninde hep tam ortada kalýr)
+        // Haritayï¿½ yumuï¿½ak bir ï¿½ekilde kaydï¿½r (X ekseninde hep tam ortada kalï¿½r)
         Vector2 currentPos = mapRect.anchoredPosition;
         currentPos.y = Mathf.Lerp(currentPos.y, targetMapY, Time.deltaTime * 10f);
         currentPos.x = 0;

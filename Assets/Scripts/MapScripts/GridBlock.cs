@@ -5,11 +5,11 @@ using UnityEngine.UI;
 
 public class GridBlock : MonoBehaviour
 {
-    [Header("Baþlangýç Koordinatý")]
+    [Header("BaÅŸlangÄ±Ã§ KoordinatÄ±")]
     public int currentX;
     public int currentY;
 
-    [Header("Olmasý Gereken (Doðru) Koordinat")]
+    [Header("OlmasÄ± Gereken (DoÄŸru) Koordinat")]
     public int targetX;
     public int targetY;
 
@@ -41,6 +41,7 @@ public class GridBlock : MonoBehaviour
 
     public void SetShade(bool isActive, bool isFirstSelection = true)
     {
+        Debug.Log("SET SHADE TO ");
         if (shadeImage == null) return;
 
         shadeImage.gameObject.SetActive(isActive);

@@ -75,7 +75,6 @@ public class PlayerMovementManager : MonoBehaviour
 
         if (movementDir != Vector3.zero)
         {
-            Debug.Log("IS MOVING");
             OnPlayerMoved?.Invoke(this, null);
 
             List<RaycastHit> hits = GetHitRaycasts(movementDir);

@@ -1,27 +1,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// Inspector'da sesleri liste halinde görmek için özel bir sýnýf
+// Inspector'da sesleri liste halinde gï¿½rmek iï¿½in ï¿½zel bir sï¿½nï¿½f
 [System.Serializable]
 public class Sound
 {
-    public string name;        // Sese vereceðin isim (Örn: "Jump", "Click", "BGM_Main")
-    public AudioClip clip;     // Ses dosyasýnýn kendisi
+    public string name;        // Sese vereceï¿½in isim (ï¿½rn: "Jump", "Click", "BGM_Main")
+    public AudioClip clip;     // Ses dosyasï¿½nï¿½n kendisi
     [Range(0f, 1f)]
-    public float volume = 1f;  // Bu sese özel varsayýlan ses seviyesi
+    public float volume = 1f;  // Bu sese ï¿½zel varsayï¿½lan ses seviyesi
 }
 
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance { get; private set; }
 
-    [Header("Ses Kaynaklarý (Audio Sources)")]
-    [Tooltip("Müzik için kullanýlacak AudioSource (Loop açýk olmalý)")]
+    [Header("Ses KaynaklarÄ± (Audio Sources)")]
+    [Tooltip("MÃ¼zik iÃ§in kullanÄ±lacak AudioSource (Loop aÃ§Ä±k olmalÄ±)")]
     public AudioSource musicSource;
-    [Tooltip("Efektler için kullanýlacak AudioSource")]
+    [Tooltip("Efektler iÃ§in kullanÄ±lacak AudioSource")]
     public AudioSource sfxSource;
 
-    [Header("Ses Kütüphanesi")]
+    [Header("Ses KÃ¼tÃ¼phanesi")]
     public List<Sound> musicSounds;
     public List<Sound> sfxSounds;
 
@@ -31,7 +31,7 @@ public class AudioManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            // Eðer sahneler arasý geçiþ yapacaksan bu objenin yok olmamasýný saðlar
+            // EÄŸer sahneler arasÄ± geÃ§iÅŸ yapacaksan bu objenin yok olmamasÄ±nÄ± saÄŸlar
             // DontDestroyOnLoad(gameObject); 
         }
         else
@@ -40,7 +40,7 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    // --- MÜZÝK METOTLARI ---
+    // --- MÃœZÄ°K METOTLARI ---
 
     public void PlayMusic(string name)
     {
@@ -48,11 +48,11 @@ public class AudioManager : MonoBehaviour
 
         if (s == null)
         {
-            Debug.LogWarning("Müzik bulunamadý: " + name);
+            Debug.LogWarning("MÃ¼zik bulunamadÄ±: " + name);
             return;
         }
 
-        // Eðer zaten bu müzik çalýyorsa baþtan baþlatma
+        // EÄŸer zaten bu mÃ¼zik Ã§alÄ±yorsa baÅŸtan baÅŸlatma
         if (musicSource.clip == s.clip && musicSource.isPlaying) return;
 
         musicSource.clip = s.clip;
@@ -72,12 +72,12 @@ public class AudioManager : MonoBehaviour
 
         if (s == null)
         {
-            Debug.LogWarning("SFX bulunamadý: " + name);
+            Debug.LogWarning("SFX bulunamadÄ±: " + name);
             return;
         }
 
-        // PlayOneShot kullanýyoruz çünkü efektler (örneðin art arda alýnan altýnlar) 
-        // birbirini kesmeden üst üste çalabilmeli.
+        // PlayOneShot kullanÄ±yoruz Ã§Ã¼nkÃ¼ efektler (Ã¶rneÄŸin art arda alÄ±nan altÄ±nlar) 
+        // birbirini kesmeden Ã¼st Ã¼ste Ã§alabilmeli.
         sfxSource.PlayOneShot(s.clip, s.volume);
     }
 }

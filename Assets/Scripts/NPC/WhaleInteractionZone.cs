@@ -5,15 +5,15 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Collider2D))]
 public class WhaleInteractionZone : MonoBehaviour
 {
-    [Header("Etkileþim Ayarlarý")]
-    [Tooltip("True ise balina çarpar çarpmaz tetiklenir. False ise yanýna gidip E'ye basmak gerekir.")]
+    [Header("EtkileÅŸim AyarlarÄ±")]
+    [Tooltip("True ise balina Ã§arpar Ã§arpmaz tetiklenir. False ise yanÄ±na gidip E'ye basmak gerekir.")]
     public bool isAutoTrigger = true;
 
-    [Tooltip("Sýnýr bölgesi ise balinayý içeri sokmamak için geri itsin mi?")]
+    [Tooltip("SÄ±nÄ±r bÃ¶lgesi ise balinayÄ± iÃ§eri sokmamak iÃ§in geri itsin mi?")]
     public bool applyPushback = true;
     public float pushbackForce = 150f;
 
-    [Header("Tetiklenecek Olaylar (Inspector'dan Atayýn)")]
+    [Header("Tetiklenecek Olaylar (Inspector'dan AtayÄ±n)")]
     public UnityEvent OnInteractEvent;
 
     private bool isPlayerInZone = false;
@@ -21,7 +21,7 @@ public class WhaleInteractionZone : MonoBehaviour
 
     private void Update()
     {
-        // Eðer E ile etkileþim modundaysak, oyuncu bölgedeyse ve oyun Balina modundaysa E tuþunu dinle
+        // Eï¿½er E ile etkileï¿½im modundaysak, oyuncu bï¿½lgedeyse ve oyun Balina modundaysa E tuï¿½unu dinle
         if (!isAutoTrigger && isPlayerInZone && GameManager.Instance.CurrentState == GameState.OnWhale)
         {
             if (Keyboard.current != null && Keyboard.current.eKey.wasPressedThisFrame)
@@ -33,13 +33,13 @@ public class WhaleInteractionZone : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // Çarpan þey balina mý ve balina modunda mýyýz?
+        // ï¿½arpan ï¿½ey balina mï¿½ ve balina modunda mï¿½yï¿½z?
         if (other.CompareTag("Player") && GameManager.Instance.CurrentState == GameState.OnWhale)
         {
             isPlayerInZone = true;
             playerRb = other.GetComponent<Rigidbody2D>();
 
-            // Eðer otomatik tetiklenme açýksa beklemeden çalýþtýr
+            // Eï¿½er otomatik tetiklenme aï¿½ï¿½ksa beklemeden ï¿½alï¿½ï¿½tï¿½r
             if (isAutoTrigger)
             {
                 ExecuteInteraction();
@@ -58,14 +58,14 @@ public class WhaleInteractionZone : MonoBehaviour
 
     private void ExecuteInteraction()
     {
-        // Geri itme açýksa balinayý geldiði yöne doðru it
+        // Geri itme aï¿½ï¿½ksa balinayï¿½ geldiï¿½i yï¿½ne doï¿½ru it
         if (applyPushback && playerRb != null)
         {
             Vector2 pushDir = (playerRb.transform.position - transform.position).normalized;
             playerRb.AddForce(pushDir * pushbackForce, ForceMode2D.Impulse);
         }
 
-        // Inspector'dan baðlanan tüm olaylarý (Diyalog, sahne geçiþi, ses çalma vs.) tetikle
+        // Inspector'dan baï¿½lanan tï¿½m olaylarï¿½ (Diyalog, sahne geï¿½iï¿½i, ses ï¿½alma vs.) tetikle
         OnInteractEvent?.Invoke();
     }
 }

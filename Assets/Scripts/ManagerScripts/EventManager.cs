@@ -79,9 +79,9 @@ public class EventManager : MonoBehaviour
     {
         List<DialogueLine> conversation = new List<DialogueLine>
         {
-            new DialogueLine("TestSpeaker1", "Merhaba, haritadaki son koordinatları kontrol ettin mi?"),
-            new DialogueLine("TestSpeaker2", "Evet, radar sistemini yeni güncelledim. Oraya gitmemiz biraz tehlikeli olabilir."),
-            new DialogueLine("TestSpeaker3", "O zaman dikkatli olmalıyız.")
+            new DialogueLine("TestSpeaker1", "Merhaba, haritadaki son koordinatlarÄ± kontrol ettin mi?"),
+            new DialogueLine("TestSpeaker2", "Evet, radar sistemini yeni gÃ¼ncelledim. Oraya gitmemiz biraz tehlikeli olabilir."),
+            new DialogueLine("TestSpeaker3", "O zaman dikkatli olmalÄ±yÄ±z.")
         };
 
         DialogueManager.Instance.StartDialogue(conversation);
@@ -96,7 +96,7 @@ public class EventManager : MonoBehaviour
     {
         List<DialogueLine> conversation = new List<DialogueLine>
         {
-            new DialogueLine("Whale", "Krakene tükürürürüm seni, yolunu değiştir."),
+            new DialogueLine("Whale", "Krakene tÃ¼kÃ¼rÃ¼rÃ¼rÃ¼m seni, yolunu deÄŸiÅŸtir."),
             new DialogueLine("Prenses", "...")
         };
 
@@ -139,17 +139,17 @@ public class EventManager : MonoBehaviour
     {
         List<DialogueLine> conversation = new List<DialogueLine>
         {
-            new DialogueLine("Prenses", "Ayyy noluyo noluyo gözüme perde indi."),
+            new DialogueLine("Prenses", "Ayyy noluyo noluyo gÃ¶zÃ¼me perde indi."),
             new DialogueLine("Hayalet", "Radikal feminist goblin prensesi!"),
-            new DialogueLine("Hayalet", "Ben sevgili kocacığın goblin prens."),
-            new DialogueLine("Hayalet", "İnsanlar beni parçalara ayırdı."),
-            new DialogueLine("Hayalet", "Bizden asırlardır korkuyorlar su boyunda balina beslerken tek düşürdüler."),
-            new DialogueLine("Hayalet", "Neden mi sana dokunmadılar? Radikal feminizmin onları kaçırdı sanırım."),
-            new DialogueLine("Hayalet", "Beni diriltmek için birtek sana güvenebilirim. Bedenimin parçalarını beni kaçırdıkları adaya dağıttılar onları bul."),
-            new DialogueLine("Hayalet", "Al sana bu adanın harita parçaları..."),
+            new DialogueLine("Hayalet", "Ben sevgili kocacÄ±ÄŸÄ±n goblin prens."),
+            new DialogueLine("Hayalet", "Ä°nsanlar beni parÃ§alara ayÄ±rdÄ±."),
+            new DialogueLine("Hayalet", "Bizden asÄ±rlardÄ±r korkuyorlar su boyunda balina beslerken tek dÃ¼ÅŸÃ¼rdÃ¼ler."),
+            new DialogueLine("Hayalet", "Neden mi sana dokunmadÄ±lar? Radikal feminizmin onlarÄ± kaÃ§Ä±rdÄ± sanÄ±rÄ±m."),
+            new DialogueLine("Hayalet", "Beni diriltmek iÃ§in birtek sana gÃ¼venebilirim. Bedenimin parÃ§alarÄ±nÄ± beni kaÃ§Ä±rdÄ±klarÄ± adaya daÄŸÄ±ttÄ±lar onlarÄ± bul."),
+            new DialogueLine("Hayalet", "Al sana bu adanÄ±n harita parÃ§alarÄ±..."),
             new DialogueLine("Hayalet", "Sonrakileri kendin bulman gerekecek."),
-            new DialogueLine("Prenses", "OFF. Ama çok işş"),
-            new DialogueLine("Hayalet", "Sen bu işi slaylersin.")
+            new DialogueLine("Prenses", "OFF. Ama Ã§ok iÅŸÅŸ"),
+            new DialogueLine("Hayalet", "Sen bu iÅŸi slaylersin.")
         };
 
         DialogueManager.Instance.StartDialogue(conversation, () =>
@@ -161,7 +161,7 @@ public class EventManager : MonoBehaviour
     {
         List<DialogueLine> conversation = new List<DialogueLine>
         {
-            new DialogueLine("Prenses", "Ikıncı harita kalıntılarını da buldum..."),
+            new DialogueLine("Prenses", "Ikinci harita kalÄ±ntÄ±larÄ±nÄ± da buldum..."),
             new DialogueLine("Hayalet", "Aferin iyi ilerliyorsun.")
         };
 
@@ -175,8 +175,8 @@ public class EventManager : MonoBehaviour
     {
         List<DialogueLine> conversation = new List<DialogueLine>
         {
-            new DialogueLine("Prenses", "Üçüncü harita kalıntılarını da buldum..."),
-            new DialogueLine("Hayalet", "Çok az kaldı son adaya vardığında benim parçalarımı birleştirebileceğin bir çember bulacaksın.")
+            new DialogueLine("Prenses", "ÃœÃ§Ã¼ncÃ¼ harita kalÄ±ntÄ±larÄ±nÄ± da buldum..."),
+            new DialogueLine("Hayalet", "Ã‡ok az kaldÄ± son adaya vardÄ±ÄŸÄ±nda benim parÃ§alarÄ±mÄ± birleÅŸtirebileceÄŸin bir Ã§ember bulacaksÄ±n.")
         };
 
         DialogueManager.Instance.StartDialogue(conversation, () =>
@@ -189,7 +189,7 @@ public class EventManager : MonoBehaviour
     {
         List<DialogueLine> conversation = new List<DialogueLine>
         {
-            new DialogueLine("Prenses", "Dördüncü harita kalıntılarını da buldum...")
+            new DialogueLine("Prenses", "DÃ¶rdÃ¼ncÃ¼ harita kalÄ±ntÄ±larÄ±nÄ± da buldum...")
         };
 
         DialogueManager.Instance.StartDialogue(conversation, () =>
@@ -202,9 +202,9 @@ public class EventManager : MonoBehaviour
     {
         List<DialogueLine> conversation = new List<DialogueLine>
         {
-            new DialogueLine("Prenses", "Bu da son harita olmalı."),
-            new DialogueLine("Prenses", "Bebeğimin parçalarını toplamak için son adaya son bir iğrenc yolculuk."),
-            new DialogueLine("Hayalet", "Az kaldı seni bekliyorum canım.")
+            new DialogueLine("Prenses", "Bu da son harita olmalÄ±."),
+            new DialogueLine("Prenses", "BebeÄŸimin parÃ§alarÄ±nÄ± toplamak iÃ§in son adaya son bir iÄŸrenc yolculuk."),
+            new DialogueLine("Hayalet", "Az kaldÄ± seni bekliyorum canÄ±m.")
         };
 
         DialogueManager.Instance.StartDialogue(conversation, () =>
@@ -219,17 +219,17 @@ public class EventManager : MonoBehaviour
         {
             List<DialogueLine> conversation1 = new List<DialogueLine>
             {
-                new DialogueLine("Prenses", "Sanırım ceset parçalarını buraya toplamalıyım.")
+                new DialogueLine("Prenses", "SanÄ±rÄ±m ceset parÃ§alarÄ±nÄ± buraya toplamalÄ±yÄ±m.")
             };
             DialogueManager.Instance.StartDialogue(conversation1);
         }
         if (bodyCount < 9)
         {
-            string message = "9 parça içinden " + bodyCount + " parça buldum.";
+            string message = "9 parÃ§a iÃ§inden " + bodyCount + " parÃ§a buldum.";
             List<DialogueLine> conversation2 = new List<DialogueLine>
             {
                 new DialogueLine("Prenses", message),
-                new DialogueLine("Prenses", "Bekle beni aşkitom."),
+                new DialogueLine("Prenses", "Bekle beni aÅŸkitom."),
             };
             DialogueManager.Instance.StartDialogue(conversation2);
             return;
@@ -237,8 +237,8 @@ public class EventManager : MonoBehaviour
 
         List<DialogueLine> conversation = new List<DialogueLine>
             {
-                new DialogueLine("Prenses", "Uzun bekleyişin sonu geldi. Umarım yeterince hızlı olurum."),
-                new DialogueLine("Prenses", "Bekle beni bebeğim."),
+                new DialogueLine("Prenses", "Uzun bekleyiÅŸin sonu geldi. UmarÄ±m yeterince hÄ±zlÄ± olurum."),
+                new DialogueLine("Prenses", "Bekle beni bebeÄŸim."),
             };
         DialogueManager.Instance.StartDialogue(conversation);
         puzzle6.SetActive(true);
@@ -248,7 +248,7 @@ public class EventManager : MonoBehaviour
         bodyCount++;
         List<DialogueLine> conversation = new List<DialogueLine>
             {
-                new DialogueLine("Prenses", bodyCount + ". parçayı buldum.")
+                new DialogueLine("Prenses", bodyCount + ". parÃ§ayÄ± buldum.")
             };
         DialogueManager.Instance.StartDialogue(conversation);
     }

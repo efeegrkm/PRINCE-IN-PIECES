@@ -3,18 +3,19 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using UnityEditor.Build;
+using System;
 
 public class GridPuzzle : MonoBehaviour
 {
-    [Header("Puzzle Boyutlarý")]
+    [Header("Puzzle BoyutlarÄ±")]
     public int xGridCount = 3;
     public int yGridCount = 3;
 
-    [Header("Harita Parçalarý")]
+    [Header("Harita ParÃ§alarÄ±")]
     public List<GridBlock> blocks;
 
-    [Header("Görsel Ayarlar")]
-    [Tooltip("Bitmiþ map resize için:")]
+    [Header("GÃ¶rsel Ayarlar")]
+    [Tooltip("BitmiÅŸ map resize iÃ§in:")]
     public Sprite finishedPuzzle; 
 
     public Color gridLineColor = new Color(0, 0, 0, 0.5f);
@@ -38,7 +39,7 @@ public class GridPuzzle : MonoBehaviour
     private GridBlock firstSelectedBlock;
     private GridBlock secondSelectedBlock;
 
-    [Header("Map Yamalarý")]
+    [Header("Map YamalarÄ±")]
     [SerializeField] private GameObject mapYama1;
     [SerializeField] private GameObject mapYama2;
     [SerializeField] private GameObject mapYama3;
@@ -218,10 +219,10 @@ public class GridPuzzle : MonoBehaviour
                     int diffX = secondSelectedBlock.currentX - firstSelectedBlock.currentX;
                     int diffY = secondSelectedBlock.currentY - firstSelectedBlock.currentY;
 
-                    if (diffX == 1) arrowIndicator.localRotation = Quaternion.Euler(0, 0, 0);       // Sað
+                    if (diffX == 1) arrowIndicator.localRotation = Quaternion.Euler(0, 0, 0);       // Saï¿½
                     else if (diffX == -1) arrowIndicator.localRotation = Quaternion.Euler(0, 0, 180); // Sol
-                    else if (diffY == 1) arrowIndicator.localRotation = Quaternion.Euler(0, 0, 90);  // Yukarý
-                    else if (diffY == -1) arrowIndicator.localRotation = Quaternion.Euler(0, 0, -90); // Aþaðý
+                    else if (diffY == 1) arrowIndicator.localRotation = Quaternion.Euler(0, 0, 90);  // Yukarï¿½
+                    else if (diffY == -1) arrowIndicator.localRotation = Quaternion.Euler(0, 0, -90); // Aï¿½aï¿½ï¿½
                 }
             }
         }
@@ -337,8 +338,8 @@ public class GridPuzzle : MonoBehaviour
                 mapYama1.SetActive(true);
                 List<DialogueLine> conversation = new List<DialogueLine>
                 {
-                    new DialogueLine("Hayalet", "Bu kadar akýllý olduðunu bilmiyoordum aþkitom."),
-                    new DialogueLine("Hayalet", "Sonraki 4 bulmaca bu kadar kolay olsa keþke..."),
+                    new DialogueLine("Hayalet", "Bu kadar akÄ±llÄ± olduÄŸunu bilmiyoordum aÅŸkitom."),
+                    new DialogueLine("Hayalet", "Sonraki 4 bulmaca bu kadar kolay olsa keÅŸke..."),
                     new DialogueLine("Prenses", "Hmm...")
                 };
                 DialogueManager.Instance.StartDialogue(conversation, () =>
@@ -350,9 +351,9 @@ public class GridPuzzle : MonoBehaviour
                 mapYama2.SetActive(true);
                 List<DialogueLine> conversation1 = new List<DialogueLine>
                 {
-                    new DialogueLine("Prenses", "2. harita da tamam olmalý."),
-                    new DialogueLine("Hayalet", "Her geçen an ümidim artýyor 'M' ye basarak tamamladýðýn haritalarý görebilirsin."),
-                    new DialogueLine("Hayalet", "Sahilde bir dostum seni bekliyor... Haritayý tamamladýðýna göre diðer adaya geçmeye hazýrsýn.")
+                    new DialogueLine("Prenses", "2. harita da tamam olmalï¿½."),
+                    new DialogueLine("Hayalet", "Her geÃ§en an Ã¼midim artÄ±yor 'M' ye basarak tamamladÄ±ÄŸÄ±n haritalarÄ± gÃ¶rebilirsin."),
+                    new DialogueLine("Hayalet", "Sahilde bir dostum seni bekliyor... HaritayÄ± tamamladÄ±ÄŸÄ±na gÃ¶re diÄŸer adaya geÃ§meye hazÄ±rsÄ±n.")
                 };
                 DialogueManager.Instance.StartDialogue(conversation1, () =>
                 {
@@ -367,6 +368,7 @@ public class GridPuzzle : MonoBehaviour
                 DialogueManager.Instance.StartDialogue(conversation4, () =>
                 {
                     mapYama3.SetActive(true);
+                    this.gameObject.SetActive(false);
                 });
                 
                 break;
@@ -378,6 +380,7 @@ public class GridPuzzle : MonoBehaviour
                 DialogueManager.Instance.StartDialogue(conversation5, () =>
                 {
                     mapYama4.SetActive(true);
+                    this.gameObject.SetActive(false);
                 });
                 break;
             case "puzzle 5":
@@ -388,6 +391,7 @@ public class GridPuzzle : MonoBehaviour
                 DialogueManager.Instance.StartDialogue(conversation6, () =>
                 {
                     mapYama5.SetActive(true);
+                    this.gameObject.SetActive(false);
                 });
                 break;
             case "puzzle 6":
@@ -398,6 +402,7 @@ public class GridPuzzle : MonoBehaviour
                 DialogueManager.Instance.StartDialogue(conversation7, () =>
                 {
                     animatorMan.SetTrigger("diril");
+                    this.gameObject.SetActive(false);
                 });
                 break;
             default:

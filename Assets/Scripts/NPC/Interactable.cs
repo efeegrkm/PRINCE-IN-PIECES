@@ -6,7 +6,7 @@ public class Interactable : MonoBehaviour
 {
     public bool isAutoTrigger = false; // Trigger on collider or wait for E
 
-    [Header("Tetiklenecek Olaylar (Inspector'dan atayýn)")]
+    [Header("Tetiklenecek Olaylar (Inspector'dan atayÄ±n)")]
     public UnityEvent OnInteractEvent;
 
     public void Interact()

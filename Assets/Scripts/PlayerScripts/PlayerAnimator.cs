@@ -40,7 +40,6 @@ public class PlayerAnimator : MonoBehaviour
 
     private void AnimateWalk(object sender, EventArgs e)
     {
-        Debug.Log("Animate walk");
         if (!animator.GetBool(isWalking))
         {
             animator.SetBool(isWalking, true);
