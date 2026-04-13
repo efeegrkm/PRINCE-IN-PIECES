@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
+using UnityEditor.Build;
 
 public class GridPuzzle : MonoBehaviour
 {
@@ -27,6 +28,7 @@ public class GridPuzzle : MonoBehaviour
     private float blockWidth;
     private float blockHeight;
     private GameObject linesContainer;
+    public Animator animatorMan;
 
     private bool isPuzzleActive = false;
     private bool isAnimating = false;
@@ -36,6 +38,14 @@ public class GridPuzzle : MonoBehaviour
     private GridBlock firstSelectedBlock;
     private GridBlock secondSelectedBlock;
 
+    [Header("Map Yamalarý")]
+    [SerializeField] private GameObject mapYama1;
+    [SerializeField] private GameObject mapYama2;
+    [SerializeField] private GameObject mapYama3;
+    [SerializeField] private GameObject mapYama4;
+    [SerializeField] private GameObject mapYama5;
+
+    public bool devShortCut = false;
     void OnEnable()
     {
         InitializePuzzle();
@@ -84,6 +94,11 @@ public class GridPuzzle : MonoBehaviour
 
     void Update()
     {
+        if(devShortCut)
+        {
+            FinishedPuzzleSuccessfully();
+            devShortCut = false;
+        }
         if (!isPuzzleActive || isAnimating) return;
 
         if (selectionState == 0) HandleFirstSelectionInput();
@@ -306,10 +321,88 @@ public class GridPuzzle : MonoBehaviour
 
     private void FinishedPuzzleSuccessfully()
     {
+        string puzzleIndex = this.gameObject.tag;
+        initiateCurrentPuzzleFinish(puzzleIndex);
         isPuzzleActive = false;
         foreach (var block in blocks) block.SetShade(false);
         if (linesContainer != null) linesContainer.SetActive(false);
         if (arrowIndicator != null) arrowIndicator.gameObject.SetActive(false);
         GameManager.Instance.ChangeState(GameState.Exploring);
+    }
+    private void initiateCurrentPuzzleFinish(string puzzleIndex)
+    {
+        switch(puzzleIndex)
+        {
+            case "puzzle 1":
+                mapYama1.SetActive(true);
+                List<DialogueLine> conversation = new List<DialogueLine>
+                {
+                    new DialogueLine("Hayalet", "Bu kadar akýllý olduðunu bilmiyoordum aþkitom."),
+                    new DialogueLine("Hayalet", "Sonraki 4 bulmaca bu kadar kolay olsa keþke..."),
+                    new DialogueLine("Prenses", "Hmm...")
+                };
+                DialogueManager.Instance.StartDialogue(conversation, () =>
+                {
+                    this.gameObject.SetActive(false);
+                });
+                break;
+            case "puzzle 2":
+                mapYama2.SetActive(true);
+                List<DialogueLine> conversation1 = new List<DialogueLine>
+                {
+                    new DialogueLine("Prenses", "2. harita da tamam olmalý."),
+                    new DialogueLine("Hayalet", "Her geçen an ümidim artýyor 'M' ye basarak tamamladýðýn haritalarý görebilirsin."),
+                    new DialogueLine("Hayalet", "Sahilde bir dostum seni bekliyor... Haritayý tamamladýðýna göre diðer adaya geçmeye hazýrsýn.")
+                };
+                DialogueManager.Instance.StartDialogue(conversation1, () =>
+                {
+                    this.gameObject.SetActive(false);
+                });
+                break;
+            case "puzzle 3":
+                List<DialogueLine> conversation4 = new List<DialogueLine>
+                {
+                    new DialogueLine("Prenses", "3.map de halloldu.")
+                };
+                DialogueManager.Instance.StartDialogue(conversation4, () =>
+                {
+                    mapYama3.SetActive(true);
+                });
+                
+                break;
+            case "puzzle 4":
+                List<DialogueLine> conversation5 = new List<DialogueLine>
+                {
+                    new DialogueLine("Prenses", "4.map de halloldu.")
+                };
+                DialogueManager.Instance.StartDialogue(conversation5, () =>
+                {
+                    mapYama4.SetActive(true);
+                });
+                break;
+            case "puzzle 5":
+                List<DialogueLine> conversation6 = new List<DialogueLine>
+                {
+                    new DialogueLine("Prenses", "5.map de halloldu.")
+                };
+                DialogueManager.Instance.StartDialogue(conversation6, () =>
+                {
+                    mapYama5.SetActive(true);
+                });
+                break;
+            case "puzzle 6":
+                List<DialogueLine> conversation7 = new List<DialogueLine>
+                {
+                    new DialogueLine("Prenses", "Uyama vaktin geldi.")
+                };
+                DialogueManager.Instance.StartDialogue(conversation7, () =>
+                {
+                    animatorMan.SetTrigger("diril");
+                });
+                break;
+            default:
+                Debug.LogWarning("Bilinmeyen puzzle index'i: " + puzzleIndex);
+                break;
+        }
     }
 }

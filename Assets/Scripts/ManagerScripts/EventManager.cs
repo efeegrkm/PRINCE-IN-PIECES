@@ -10,6 +10,19 @@ public class EventManager : MonoBehaviour
     [SerializeField] private GameObject map;
     [SerializeField] private GameObject pauseScreen;
 
+    public GameObject puzzle1;
+    public GameObject puzzle2;
+    public GameObject puzzle3;
+    public GameObject puzzle4;
+    public GameObject puzzle5;
+    public GameObject puzzle6;
+
+    public GameObject balina3D;
+    public GameObject balina2D;
+    public GameObject goblinPrinces;
+
+
+    public int bodyCount = 0;
     private void Awake()
     {
         if (Instance == null) Instance = this;
@@ -93,21 +106,56 @@ public class EventManager : MonoBehaviour
 
     public void startIsland2()
     {
-
+        balina3D.transform.position = new Vector3(-0.24f, 0.53f, -25.81f);
+        goblinPrinces.transform.position = new Vector3(-5, 4.02f, -16.94f);
+        Physics.SyncTransforms();
+        balina2D.GetComponent<RectTransform>().anchoredPosition = new Vector2(69f, -155f);
+        GameManager.Instance.ChangeState(GameState.Exploring);
+    }
+    public void startIsland3()
+    {
+        balina3D.transform.position = new Vector3(3.42f, -5.07f, -31.48f);
+        goblinPrinces.transform.position = new Vector3(17.19f, 3.81f, -11.8f);
+        Physics.SyncTransforms();
+        balina2D.GetComponent<RectTransform>().anchoredPosition = new Vector2(329f, 85f);
+        GameManager.Instance.ChangeState(GameState.Exploring);
+    }
+    public void startIsland4()
+    {
+        balina3D.transform.position = new Vector3(11.04f, 0.59f, 9.07f);
+        goblinPrinces.transform.position = new Vector3(14.9f, 3.89f, 13.25f);
+        Physics.SyncTransforms();
+        balina2D.GetComponent<RectTransform>().anchoredPosition = new Vector2(243f, 293f);
+        GameManager.Instance.ChangeState(GameState.Exploring);
+    }
+    public void startIsland5()
+    {
+        goblinPrinces.transform.position = new Vector3(-8.87f, 1.77f, 17.52f);
+        Physics.SyncTransforms();
+        GameManager.Instance.ChangeState(GameState.Exploring);
     }
 
     public void interactFirstMap()
     {
         List<DialogueLine> conversation = new List<DialogueLine>
         {
+            new DialogueLine("Prenses", "Ayyy noluyo noluyo gözüme perde indi."),
+            new DialogueLine("Hayalet", "Radikal feminist goblin prensesi!"),
+            new DialogueLine("Hayalet", "Ben sevgili kocacýðýn goblin prens."),
+            new DialogueLine("Hayalet", "Ýnsanlar beni parçalara ayýrdý."),
+            new DialogueLine("Hayalet", "Bizden asýrlardýr korkuyorlar su boyunda balina beslerken tek düþürdüler."),
+            new DialogueLine("Hayalet", "Neden mi sana dokunmadýlar? Radikal feminizmin onlarý kaçýrdý sanýrým."),
+            new DialogueLine("Hayalet", "Beni diriltmek için birtek sana güvenebilirim. Bedenimin parçalarýný beni kaçýrdýklarý adaya daðýttýlar onlarý bul."),
             new DialogueLine("Hayalet", "Al sana bu adanýn harita parçalarý..."),
             new DialogueLine("Hayalet", "Sonrakileri kendin bulman gerekecek."),
             new DialogueLine("Prenses", "OFF. Ama çok iþþ"),
             new DialogueLine("Hayalet", "Sen bu iþi slaylersin.")
         };
-    
-        DialogueManager.Instance.StartDialogue(conversation);
-        //Grid puzzle 1 setActive true.
+
+        DialogueManager.Instance.StartDialogue(conversation, () =>
+        {
+            puzzle1.SetActive(true);
+        });
     }
     public void interactSecondMap()
     {
@@ -117,7 +165,91 @@ public class EventManager : MonoBehaviour
             new DialogueLine("Hayalet", "Aferin iyi ilerliyorsun.")
         };
 
+        DialogueManager.Instance.StartDialogue(conversation, () =>
+        {
+            puzzle2.SetActive(true);
+        });
+    }
+
+    public void interactThirdMap()
+    {
+        List<DialogueLine> conversation = new List<DialogueLine>
+        {
+            new DialogueLine("Prenses", "Üçüncü harita kalýntýlarýný da buldum..."),
+            new DialogueLine("Hayalet", "Çok az kaldý son adaya vardýðýnda benim parçalarýmý birleþtirebileceðin bir çember bulacaksýn.")
+        };
+
+        DialogueManager.Instance.StartDialogue(conversation, () =>
+        {
+            puzzle3.SetActive(true);
+        });
+    }
+
+    public void interactFourthMap()
+    {
+        List<DialogueLine> conversation = new List<DialogueLine>
+        {
+            new DialogueLine("Prenses", "Dördüncü harita kalýntýlarýný da buldum...")
+        };
+
+        DialogueManager.Instance.StartDialogue(conversation, () =>
+        {
+            puzzle4.SetActive(true);
+        });
+    }
+
+    public void interactFifthMap()
+    {
+        List<DialogueLine> conversation = new List<DialogueLine>
+        {
+            new DialogueLine("Prenses", "Bu da son harita olmalý."),
+            new DialogueLine("Prenses", "Bebeðimin parçalarýný toplamak için son adaya son bir iðrenc yolculuk."),
+            new DialogueLine("Hayalet", "Az kaldý seni bekliyorum caným.")
+        };
+
+        DialogueManager.Instance.StartDialogue(conversation, () =>
+        {
+            puzzle5.SetActive(true);
+        });
+    }
+
+    public void interactCatacoumb()
+    {
+        if (bodyCount == 0)
+        {
+            List<DialogueLine> conversation1 = new List<DialogueLine>
+            {
+                new DialogueLine("Prenses", "Sanýrým ceset parçalarýný buraya toplamalýyým.")
+            };
+            DialogueManager.Instance.StartDialogue(conversation1);
+        }
+        if (bodyCount < 9)
+        {
+            string message = "9 parça içinden " + bodyCount + " parça buldum.";
+            List<DialogueLine> conversation2 = new List<DialogueLine>
+            {
+                new DialogueLine("Prenses", message),
+                new DialogueLine("Prenses", "Bekle beni aþkitom."),
+            };
+            DialogueManager.Instance.StartDialogue(conversation2);
+            return;
+        }
+
+        List<DialogueLine> conversation = new List<DialogueLine>
+            {
+                new DialogueLine("Prenses", "Uzun bekleyiþin sonu geldi. Umarým yeterince hýzlý olurum."),
+                new DialogueLine("Prenses", "Bekle beni bebeðim."),
+            };
         DialogueManager.Instance.StartDialogue(conversation);
-        //Grid puzzle 2 setActive true.
+        puzzle6.SetActive(true);
+    }
+    public void addBodyCount()
+    {
+        bodyCount++;
+        List<DialogueLine> conversation = new List<DialogueLine>
+            {
+                new DialogueLine("Prenses", bodyCount + ". parçayý buldum.")
+            };
+        DialogueManager.Instance.StartDialogue(conversation);
     }
 }

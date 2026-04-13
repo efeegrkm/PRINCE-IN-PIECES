@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro; 
-using UnityEngine.InputSystem; 
+using TMPro;
+using UnityEngine.InputSystem;
+using System; // --- YENÝ EKLENDÝ: Action kullanabilmek için ---
 
 [System.Serializable]
 public class Speaker
@@ -16,7 +17,7 @@ public class Speaker
 public class DialogueLine
 {
     public string speakerName;
-    [TextArea(3, 10)] 
+    [TextArea(3, 10)]
     public string text;
 
     public DialogueLine(string name, string txt)
@@ -35,18 +36,21 @@ public class DialogueManager : MonoBehaviour
     public List<Speaker> speakers;
 
     [Header("UI Referanslarý")]
-    public GameObject dialoguePanel; 
-    public Image portraitImage; 
-    public TextMeshProUGUI nameText; 
-    public TextMeshProUGUI dialogueText; 
+    public GameObject dialoguePanel;
+    public Image portraitImage;
+    public TextMeshProUGUI nameText;
+    public TextMeshProUGUI dialogueText;
 
     [Header("Ayarlar")]
-    public float typingSpeed = 0.03f; 
+    public float typingSpeed = 0.03f;
 
     private Queue<DialogueLine> linesQueue = new Queue<DialogueLine>();
     private bool isTyping = false;
     private string currentFullText = "";
     private Coroutine typingCoroutine;
+
+    // --- YENÝ EKLENDÝ: Diyalog bittiðinde çalýþacak metodu tutan deðiþken ---
+    private Action onDialogueCompleteCallback;
 
     private void Awake()
     {
@@ -90,9 +94,13 @@ public class DialogueManager : MonoBehaviour
         StartDialogueSequence();
     }
 
-    public void StartDialogue(List<DialogueLine> dialogueLines)
+    public void StartDialogue(List<DialogueLine> dialogueLines, Action onComplete = null)
     {
         GameManager.Instance.ChangeState(GameState.Dialogue);
+
+        // Bize verilen metodu, diyalog bitince çaðýrmak üzere saklýyoruz
+        onDialogueCompleteCallback = onComplete;
+
         linesQueue.Clear();
         foreach (DialogueLine line in dialogueLines)
         {
@@ -146,8 +154,13 @@ public class DialogueManager : MonoBehaviour
         isTyping = true;
         dialogueText.text = "";
 
+        int count = 0;
         foreach (char letter in sentence.ToCharArray())
         {
+            if(count%2 == 0)
+            {
+                SoundManager.Instance.PlayAudio();
+            }
             dialogueText.text += letter;
             yield return new WaitForSeconds(typingSpeed);
         }
@@ -157,8 +170,17 @@ public class DialogueManager : MonoBehaviour
 
     private void EndDialogue()
     {
-        if(GameManager.Instance.CurrentState == GameState.Dialogue)
+        if (GameManager.Instance.CurrentState == GameState.Dialogue)
             GameManager.Instance.ChangeState(GameState.Exploring);
+
         dialoguePanel.SetActive(false);
+
+        // --- YENÝ EKLENDÝ: Eðer sakladýðýmýz bir metot varsa, onu þimdi çalýþtýr ---
+        if (onDialogueCompleteCallback != null)
+        {
+            Action tempCallback = onDialogueCompleteCallback;
+            onDialogueCompleteCallback = null; // Tekrar çaðrýlmamasý için önce temizle
+            tempCallback.Invoke(); // Metodu çalýþtýr!
+        }
     }
 }
