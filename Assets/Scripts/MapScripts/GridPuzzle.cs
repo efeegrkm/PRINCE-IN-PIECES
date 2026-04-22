@@ -349,6 +349,7 @@ public class GridPuzzle : MonoBehaviour
                 };
                 DialogueManager.Instance.StartDialogue(conversation, () =>
                 {
+                    EventManager.Instance.resetPuzzleHintMap();
                     this.gameObject.SetActive(false);
                     PlayerMovementManager.Instance.ResumeMovement();
                 });
@@ -369,6 +370,7 @@ public class GridPuzzle : MonoBehaviour
                 };
                 DialogueManager.Instance.StartDialogue(conversation1, () =>
                 {
+                    EventManager.Instance.resetPuzzleHintMap();
                     this.gameObject.SetActive(false);
                     PlayerMovementManager.Instance.ResumeMovement();
                 });
@@ -384,6 +386,7 @@ public class GridPuzzle : MonoBehaviour
                 };
                 DialogueManager.Instance.StartDialogue(conversation4, () =>
                 {
+                    EventManager.Instance.resetPuzzleHintMap();
                     this.gameObject.SetActive(false);
                     PlayerMovementManager.Instance.ResumeMovement();
                 });
@@ -400,6 +403,7 @@ public class GridPuzzle : MonoBehaviour
                 };
                 DialogueManager.Instance.StartDialogue(conversation5, () =>
                 {
+                    EventManager.Instance.resetPuzzleHintMap();
                     this.gameObject.SetActive(false);
                     PlayerMovementManager.Instance.ResumeMovement();
                 });
@@ -417,6 +421,7 @@ public class GridPuzzle : MonoBehaviour
                 };
                 DialogueManager.Instance.StartDialogue(conversation6, () =>
                 {
+                    EventManager.Instance.resetPuzzleHintMap();
                     EventManager.Instance.mapFinishEventTrigger = true;
                     this.gameObject.SetActive(false);
                     PlayerMovementManager.Instance.ResumeMovement();    

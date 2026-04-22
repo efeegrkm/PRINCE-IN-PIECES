@@ -51,6 +51,9 @@ public class DialogueManager : MonoBehaviour
 
     private Action onDialogueCompleteCallback;
 
+    // YENÝ EKLENEN: Input çakýþmasýný önlemek için kontrol bayraðý
+    private bool canReceiveInput = false;
+
     private void Awake()
     {
         if (Instance == null) { Instance = this; }
@@ -65,6 +68,9 @@ public class DialogueManager : MonoBehaviour
     private void Update()
     {
         if (!dialoguePanel.activeInHierarchy) return;
+
+        // YENÝ EKLENEN: Sistem henüz input almaya hazýr deðilse bekle (Frame çakýþmasý bariyeri)
+        if (!canReceiveInput) return;
 
         bool skipOrNextPressed = false;
 
@@ -114,7 +120,19 @@ public class DialogueManager : MonoBehaviour
     private void StartDialogueSequence()
     {
         dialoguePanel.SetActive(true);
+
+        // YENÝ EKLENEN: Diyalog baþlarken input alýmýný geçici olarak kapat
+        canReceiveInput = false;
+        StartCoroutine(EnableInputNextFrame());
+
         DisplayNextLine();
+    }
+
+    // YENÝ EKLENEN: 1 Frame sonra input alýmýný tekrar açan Coroutine
+    private IEnumerator EnableInputNextFrame()
+    {
+        yield return null; // Sadece o anki frame'in bitmesini bekler
+        canReceiveInput = true;
     }
 
     private void DisplayNextLine()
@@ -179,6 +197,7 @@ public class DialogueManager : MonoBehaviour
             GameManager.Instance.ChangeState(GameState.Exploring);
 
         dialoguePanel.SetActive(false);
+        canReceiveInput = false; // Diyalog bittiðinde garantilemek için tekrar kapatýyoruz
 
         if (onDialogueCompleteCallback != null)
         {

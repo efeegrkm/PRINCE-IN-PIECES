@@ -18,6 +18,7 @@ public class EventManager : MonoBehaviour
     [SerializeField] private CapsuleCollider blockCol;
     [SerializeField] private Animator blackout;
 
+    public GameObject lastActivePuzzle = null;
     public GameObject puzzle1;
     public GameObject puzzle2;
     public GameObject puzzle3;
@@ -56,6 +57,8 @@ public class EventManager : MonoBehaviour
     public GameObject DizzyFilter;
     public GameObject princessHead;
     KeyValuePair<int, GameObject> holdedBodyPart;
+
+    private bool mapOpenedInPuzzleSection = false;
     private void Awake()
     {
         if (Instance == null) Instance = this;
@@ -96,12 +99,10 @@ public class EventManager : MonoBehaviour
             actionCam.transform.rotation = wakeTransform.rotation;
 
             blackout.SetTrigger("light");
-            DizzyFilter.SetActive(true);
-            StartCoroutine(DizzyCameraShake(actionCam.transform, wakeTransform.position, 3f, 0.15f));
+            StartCoroutine(DizzyCameraShake(actionCam.transform, wakeTransform.position, 4f, 0.15f));
 
             yield return new WaitForSeconds(3f);
             blackout.SetTrigger("blackout");
-            DizzyFilter.SetActive(false);
         }
 
         yield return new WaitForSeconds(2f);
@@ -215,8 +216,28 @@ public class EventManager : MonoBehaviour
             GameManager.Instance.ChangeState(GameState.Exploring);
             closeMap();
         }
+        else if (GameManager.Instance.CurrentState == GameState.Puzzle)
+        {
+            mapOpenedInPuzzleSection = !mapOpenedInPuzzleSection;
+            if (mapOpenedInPuzzleSection)
+            {
+                openMap();
+                lastActivePuzzle.GetComponent<RectTransform>().anchoredPosition = new Vector3(-463f, 0f, 0f);
+                map.GetComponent<RectTransform>().anchoredPosition = new Vector3(450f, 0f, 0f);
+            }
+            else
+            {
+                resetPuzzleHintMap();
+            }
+        }
     }
-
+    public void resetPuzzleHintMap()
+    {
+        mapOpenedInPuzzleSection = false;
+        lastActivePuzzle.GetComponent<RectTransform>().anchoredPosition = new Vector3(0f, 0f, 0f);
+        map.GetComponent<RectTransform>().anchoredPosition = new Vector3(0f, 0f, 0f);
+        closeMap();
+    }
     public void TogglePause()
     {
         if (GameManager.Instance.CurrentState == GameState.Exploring)
@@ -505,6 +526,7 @@ public class EventManager : MonoBehaviour
             hayalet.GetComponent<BoxCollider>().enabled = false;
             hayalet.SetActive(false);
             firstSpokenGhost = true;
+            lastActivePuzzle = puzzle1;
         });
     }
     public void interactSecondMap()
@@ -531,6 +553,7 @@ public class EventManager : MonoBehaviour
         {
             PlayerMovementManager.Instance.ResumeMovement();
             puzzle2.SetActive(true);
+            lastActivePuzzle = puzzle2;
         });
     }
 
@@ -546,6 +569,7 @@ public class EventManager : MonoBehaviour
         {
             PlayerMovementManager.Instance.ResumeMovement();
             puzzle3.SetActive(true);
+            lastActivePuzzle = puzzle3;
         });
     }
 
@@ -560,6 +584,7 @@ public class EventManager : MonoBehaviour
         {
             PlayerMovementManager.Instance.ResumeMovement();
             puzzle4.SetActive(true);
+            lastActivePuzzle = puzzle4;
         });
     }
 
@@ -576,6 +601,7 @@ public class EventManager : MonoBehaviour
         {
             PlayerMovementManager.Instance.ResumeMovement();
             puzzle5.SetActive(true);
+            lastActivePuzzle = puzzle5;
         });
     }
 

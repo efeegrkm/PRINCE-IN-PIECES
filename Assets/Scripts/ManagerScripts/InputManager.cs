@@ -30,8 +30,11 @@ public class InputManager : MonoBehaviour
 
         if (!canInteract) return;
 
-        if (GameManager.Instance.CurrentState != GameState.Exploring && GameManager.Instance.CurrentState != GameState.Map) return;
-
+        if (GameManager.Instance.CurrentState != GameState.Exploring 
+            && GameManager.Instance.CurrentState != GameState.Map 
+            && GameManager.Instance.CurrentState != GameState.Puzzle) return;
+        
+        Debug.Log("Checking for map toggle input...");
         if (Keyboard.current.mKey.wasPressedThisFrame)
         {
             EventManager.Instance.ToggleMap();
